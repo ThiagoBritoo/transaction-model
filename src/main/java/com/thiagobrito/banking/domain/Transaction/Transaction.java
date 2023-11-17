@@ -2,15 +2,20 @@ package com.thiagobrito.banking.domain.Transaction;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 import com.thiagobrito.banking.domain.User.User;
 
+import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 
+@Entity
+@Table(name = "tb_transactions")
 public class Transaction implements Serializable{
     private static final long serialVersionUID = 1L;
 
@@ -19,6 +24,7 @@ public class Transaction implements Serializable{
     private Long id;
 
     private BigDecimal amount;
+    private LocalDateTime timestamp;
 
     @ManyToOne
     @JoinColumn(name = "sender_id")
@@ -31,10 +37,11 @@ public class Transaction implements Serializable{
     public Transaction(){
     }
 
-    public Transaction(BigDecimal amount, User sender, User receiver) {
+    public Transaction(BigDecimal amount, User sender, User receiver, LocalDateTime timestamp) {
         this.amount = amount;
         this.sender = sender;
         this.receiver = receiver;
+        this.timestamp = timestamp;
     }
 
     public Long getId() {
@@ -63,6 +70,14 @@ public class Transaction implements Serializable{
 
     public void setReceiver(User receiver) {
         this.receiver = receiver;
+    }
+    
+    public LocalDateTime getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(LocalDateTime timestamp) {
+        this.timestamp = timestamp;
     }
 
     @Override
