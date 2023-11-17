@@ -2,6 +2,8 @@ package com.thiagobrito.banking.domain.User;
 
 import java.math.BigDecimal;
 
+import com.thiagobrito.banking.dtos.UserDTO;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -43,6 +45,16 @@ public class User {
         this.email = email;
         this.userType = userType;
     }
+
+    public User(UserDTO data) {
+        this.name = data.name();
+        this.password = data.password();
+        this.balance = data.balance();
+        this.document = data.document();
+        this.email = data.email();
+        this.userType = data.userType();
+    }
+    
 
     public Long getId() {
         return id;
